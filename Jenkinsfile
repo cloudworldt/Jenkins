@@ -32,7 +32,7 @@ pipeline {
 
     }
 }
-        stage('Build on kubernetes'){
+    stage('Build on kubernetes'){
           steps {
             withKubeConfig([credentialsId: 'kubeconfig']) {
                 sh 'pwd'
@@ -42,7 +42,7 @@ pipeline {
                 sh '/usr/local/bin/helm upgrade --install petclinic-app petclinic --set image.repository=cloudworld18/petclinic --set image.tag=${BUILD_NUMBER}'
         }
     }
-}
+}       
 
     }
 }
