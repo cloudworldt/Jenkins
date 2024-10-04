@@ -22,6 +22,17 @@ pipeline {
                 sh 'mvn test'
             }
         } 
+        stage('Build Docker Image'){
+            steps{
+                script {
+                    def customImage = docker.build("cloudworldt/petclinic:${env.BUILD_NUMBER}", "./docker")
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    customImage.push()    
+                }
+            }
+        }
+    }
+
 
 }
 
